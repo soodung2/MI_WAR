@@ -59,7 +59,8 @@ def get_post(value) :
 #Main
 if __name__=="__main__" :
     if(sys.argv != 3) :
-        print('1')
+        print('-i/-o -bugilding_Name')
+        print('-i -> indoor, -o -> outdoor')
         sys.exit()
     if(sys.argv[1] != '-i' and sys.argv[1] !='-o') :
         sys.exit()
