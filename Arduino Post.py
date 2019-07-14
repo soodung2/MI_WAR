@@ -21,7 +21,7 @@ def insert_post(line) :
 
 def get_post(line) :
   post = {
-    "PM25":line[6:10],"PM10":line[18:22],"Humi":line[34:38],"Temp":line[55:59]
+    "PM25":line[5:10],"PM10":line[18:23],"Humi":line[35:39],"Temp":line[56:60],"NOW":str(datetime.datetime.now())
   }
   return post
 
@@ -30,7 +30,6 @@ def main():
 
   line = port.readline()
   while True:
-
     line = port.readline()
     print(line)
     insert_post(line)
