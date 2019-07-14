@@ -6,6 +6,8 @@ import thread
 
 
 def client_server(user, addr) :
+    loc = user.recv(1024)
+    loc = json.loads(loc.decode('utf-8'))
     while True :
         try :
             data = user.recv(1024)
@@ -28,17 +30,20 @@ else :
 
 #Database name='test' & Collection name='Null'
 #Insert document
-def insert_post(value) :
-    db = connection['test']
-    collection = db['Null']
-    collection.insert(get_post(value))
+def insert_post(loc,value) :
+    db = connection[loc[1][1:]]
+    if loc[0] == '-i' :
+        collection = db['in']
+        collection.insert(get_post(value))
+    else :
+        collection = db['out']
+        collection.insert(get_post(value))
 
 #"now" is current time
 #Make document
 def get_post(value) :
-    now = datetime.datetime.now()
 	post = {
-		"now":now,"PM25":value[0],"PM10":value[1],"TEMP":'-',"HUMI":'-'
+		"now":value[0],"PM25":value[1],"PM10":value[2],"TEMP":value[3],"HUMI":value[4]
 	}
 	return post
 
