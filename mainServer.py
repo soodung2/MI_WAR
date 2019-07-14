@@ -1,5 +1,4 @@
 from socket import *
-import time
 import pymongo
 import json
 import thread
@@ -12,7 +11,7 @@ def client_server(user, addr) :
         try :
             data = user.recv(1024)
             data = json.loads(data.decode('utf-8'))
-            insert_post(data)
+            insert_post(loc, data)
         except Exception as e:
             print('server : ',e)
             break
@@ -32,20 +31,13 @@ else :
 #Insert document
 def insert_post(loc,value) :
     db = connection[loc[1][1:]]
+    in_out = ''
     if loc[0] == '-i' :
-        collection = db['in']
-        collection.insert(get_post(value))
+        in_out = 'in'
     else :
-        collection = db['out']
-        collection.insert(get_post(value))
-
-#"now" is current time
-#Make document
-def get_post(value) :
-	post = {
-		"now":value[0],"PM25":value[1],"PM10":value[2],"TEMP":value[3],"HUMI":value[4]
-	}
-	return post
+        in_out = 'out'
+    collection = db[in_out]
+    collection.insert(value)
 
 if __name__ == '__main__' :
     try :
