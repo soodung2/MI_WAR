@@ -48,6 +48,6 @@ void loop() {
   Serial.print(t);
   Serial.print(" *C \n");
 
-  delay(2000);
+  delay(5000);
 
 }
