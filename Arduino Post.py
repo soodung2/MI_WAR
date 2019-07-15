@@ -21,7 +21,8 @@ def insert_post(line) :
 
 def get_post(line) :
   post = {
-    "PM25":line[5:10],"PM10":line[18:23],"Humi":line[35:39],"Temp":line[56:60],"NOW":str(datetime.datetime.now())
+    "PM25":line[line.find('5:')+2:line.find('\t')],"PM10":line[line.find('10:')+2:line.find('\t',20)],
+    "Humi":line[line.find('y:')+2:line.find('%')],"Temp":line[line.find('e:')+2:line.find('*')],"NOW":str(datetime.datetime.now())
   }
   return post
 
