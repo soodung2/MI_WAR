@@ -1,6 +1,5 @@
 import serial
 import sys
-import time
 import datetime
 import struct
 import json
@@ -54,9 +53,6 @@ if __name__=="__main__" :
                     print('While transmitting, Problem detected : ',e)
                 else :
                     print(line)
-                finally :
-                    #time.sleep is cycle, time.sleep(second)
-                    time.sleep(5)
     #Error branch point
     #Request Quit
     except KeyboardInterrupt :
