@@ -33,9 +33,9 @@ def insert_post(loc,value) :
     db = connection[loc[1][1:]]
     in_out = ''
     if loc[0] == '-i' :
-        in_out = 'in'
+        in_out = 'indoor'
     else :
-        in_out = 'out'
+        in_out = 'outdoor'
     collection = db[in_out]
     collection.insert(value)
 
