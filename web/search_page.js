@@ -1,54 +1,51 @@
-var https = require('http');
-var url = require('url');
-var qstring = require('querystring');
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+var url = 'mongodb://ec2-13-125-244-112.ap-northeast-2.compute.amazonaws.com';
+var express = require('express');
+var bodyParser = require('body-parser');
+var app = express();
+var line = ["line1","line2","line3","line4","line5","line6","line7", "line8"];
+var dbName = 'Seoul';
+var client = new MongoClient(url, {useNewUrlParser : true });
 
-function sendResponse(weatherData, res) {
-  var page = '<html><head><title>Search location</title></head>' +
-  '<body>' +
-  '<form method="post">' +
-  'Mi-war : <input name = "location"><br>' +
-  '<input type="submit" value="search">' +
-  '</form>';
-  if(weatherData) {
-    page += '<h1>Weather Info</h1><p>' + weatherData + '</p>';
-  }
-  page+= '</body></html>';
-  res.end(page);
-}
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({extended : true}));
+app.set('view engine', 'ejs');
 
-function paraseWeather(weatherResponse, res) {
-  var weatherData = '';
-  weatherResponse.on('data', function  (chunk) {
-    weatherData += chunk;
-  });
-  weatherResponse.on('end', function() {
-    sendResponse(weatherData, res);
-  });
-}
-
-function getWeather(location, res) {
-  var options = {
-    host : 'api.openweathermap.org',
-    path : '/data/2.5/weather?q='+location
-  };
-  console.log(options);
-  https.request(options, function(weatherResponse) {
-    paraseWeather(weatherResponse, res);
-  }).end();
-}
-
-https.createServer(function(req, res) {
-  console.log(req.method);
-  if (req.method == "POST") {
-    var reqData = '';
-    req.on('data', function (chunk) {
-      reqData += chunk;
+function con(client,collec,idx) {
+  client.connect(function(err) {
+    assert.equal(null, err);
+    console.log("connected successfully to server");
+    var db = client.db(dbName);
+    var cursor = db.collection(collec).find(idx);
+    cursor.each(function(err,doc) {
+      if (err) { return ''; }
+      else {
+        if (doc != null) { return doc; }
+      }
     });
-    req.on('end', function() {
-      var postParams = qstring.parse(reqData);
-      getWeather (postParams.location, res);
-    });
-  } else {
-    sendResponse(null, res);
+  });
+}
+
+app.get('/', function (req, res) {
+  var data = req.body.name; //Building Name
+  var i = 0;
+  var doc = [];
+  for (i in line){
+    var name = '';
+    name = con(client, line[i], {station:{$regex:data}});
+    if (name != '') {
+      doc.push([line[i],name]);
+    }
   }
-}).listen(8080);
+  console.log(doc);
+  res.render('index',{list : doc});
+});
+
+app.listen(8080,function(){
+  client.connect(function(err) {
+    assert.equal(null, err);
+    console.log("connected successfully");
+  });
+  console.log('App Listening on port 8080');
+});
