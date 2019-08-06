@@ -1,0 +1,41 @@
+{
+  "name": "306368-mongo-express",
+  "version": "1.0.0",
+  "description": "Q&A discussion for Q#306368",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"No Test command found\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andzdroid/mongo-express.git"
+  },
+  "engines": {
+    "node": ">=0.12"
+  },
+  "keywords": [
+    "mongodb",
+    "express",
+    "nodejs",
+    "ejs"
+  ],
+  "author": "rexk <myungsunrex@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.3.1",
+    "cookie-parser": "^1.4.0",
+    "ejs": "^2.3.4",
+    "express": "^4.17.1",
+    "jquery": "^3.4.1",
+    "mongodb": "^2.0.52",
+    "mongoose": "^5.6.6",
+    "morgan": "^1.9.1",
+    "serve-static": "^1.14.1"
+  },
+  "bugs": {
+    "url": "https://github.com/andzdroid/mongo-express/issues"
+  },
+  "homepage": "https://github.com/andzdroid/mongo-express#readme",
+  "devDependencies": {}
+}
