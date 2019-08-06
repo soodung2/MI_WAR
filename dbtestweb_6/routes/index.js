@@ -5,5 +5,6 @@ var router = express.Router();
 router.get('/', function(req, res) {
   res.render('index', { docs: 'MongoNode' });
 });
+// app.use('/', express.static('imgfile'));
 
 module.exports = router;
