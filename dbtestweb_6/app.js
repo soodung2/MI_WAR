@@ -21,8 +21,8 @@ app.set('view engine', 'ejs'); // view engine을 ejs를 쓰겟다. 기본값은 
 // app.use(express.static('/node_modules/express/public/bootstrap/dist/css'));
 
 
-app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
+// app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
+// app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 // app.use(express.static('public'));
 // app.get('/sbway2', function(req, res){
 //   res.send('hello bento! <img src="/subway2.png">')
@@ -41,6 +41,10 @@ app.use(logger('dev')); // 개발 모드 에러 메시지 볼수 있음, product
 app.use(bodyParser.json()); // bodyparser가 json 관련 처리를 해줌
 app.use(bodyParser.urlencoded({extended: false})); // urlencoding 해줌
 app.use(cookieParser()); // 쿠키 파서
+
+app.use(express.static('./public'))//정적인 파일 저장하는 디렉토리 
+
+// 이코드로 정적인 데이터 못불러와서 위에 코드로 써보기
 app.use(serveStatic(path.join(__dirname, 'public'))); // 정적인 데이터 설정 /  현재 폴더의 public
 
 
