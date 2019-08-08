@@ -1,3 +1,38 @@
+
+.titlepart{
+
+margin-bottom: 5em;
+margin-top: 5em;
+}
+
+.jumbotron{
+
+  align-content: center;
+}
+.search{
+  margin-bottom: 5em;
+  margin-top: 5em;
+
+}
+
+.container{
+  margin-top: 5rem;
+}
+.form-inline{
+
+
+  margin-left: 55rem;
+  margin-right: 10rem;
+}
+.cardy{
+  height: 150px;
+width: 300px;
+margin-left: 20rem;
+margin-right: 5rem;
+float: right;
+
+}
+/* 지하철 사진 반응형으로만들기 */
 .subway{
 
 max-width: 100%
