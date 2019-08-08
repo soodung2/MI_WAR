@@ -20,3 +20,6 @@ padding-bottom: :20px;
   scrollbar-darkshadow-color:#FFFFFF;
   scrollbar-arrow-color:#000000;
   scrollbar-track-color:#FFFFFF; } */
+  .btn_view { font-weight:normal !important; }
+  .box_layer {position:absolute; width:350px; height:150px; overflow:auto; background:#eaeaea;right:0px; top:0px; z-index:999;border:2px solid #0084dc;
+  -webkit-border-radius:10px; -moz-border-radius:10px; border-radius:10px;}
