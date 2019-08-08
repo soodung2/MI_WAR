@@ -1,9 +1,22 @@
-img.subway{
+.subway{
 
 max-width: 100%
 height:auto;
 display: block;
 margin-left:auto;
 margin-right:auto;
+padding-bottom: :20px;
 
 }
+/* .imgScrollBox {
+  overflow:scroll;
+  width:100%; padding-bottom:20px;
+  border-style:none;
+
+  scrollbar-face-color:#FFFFFF;
+  scrollbar-3dlight-color:#FFFFFF;
+  scrollbar-highlight-color:#FFFFFF;
+  scrollbar-shadow-color:#000000;
+  scrollbar-darkshadow-color:#FFFFFF;
+  scrollbar-arrow-color:#000000;
+  scrollbar-track-color:#FFFFFF; } */
