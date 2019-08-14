@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mi-war</title>
+	<link rel ="stylesheet" type="text/css" href="stylesheet">
+</head>
+<body>
+	<h1>Mi-war search</h1>
+	<p>테스트 사이트입니다. 지속적으로 추가예정.</p>
+	<h3>건물검색</h3>
+	<div class="container">
+		<fieldset>
+			<form action="/" method="get">
+				<input name="name" type="text" class="input" placeholder="Enther Building name" required>
+				<input type="submit" class="button" value="search">
+			</form>
+		</fieldset>
+	</div>
+	<p>검색 결과 : </p>
+	<ul>
+	<% for(var i = 0; i < list.length; i++) {%>
+		<li><%= JSON.stringify(list[i])%></li>
+	</ul>
+	<% } %>
+</body>
+</html>

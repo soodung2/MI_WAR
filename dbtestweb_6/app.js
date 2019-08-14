@@ -1,4 +1,3 @@
-//TEST
 var express = require('express');// 웹페이지에 보이게해주는거
 var path = require('path'); // 경로 관리
 var serveStatic = require('serve-static');
@@ -62,3 +61,4 @@ function startApp(app) {//웹페이지 시작코딩
 startApp(app);//페이지별로 다른데이터베이스에서 값 받아와야해서 일단 메인시작시키고 버튼누를때 db에 접속함
 connectRoutes(app);
 connectErrorHandlers(app);
+

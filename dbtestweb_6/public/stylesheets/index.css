@@ -1,0 +1,60 @@
+
+.titlepart{
+
+margin-bottom: 5em;
+margin-top: 5em;
+}
+
+.jumbotron{
+
+  align-content: center;
+}
+.search{
+  margin-bottom: 5em;
+  margin-top: 5em;
+
+}
+
+.container{
+  margin-top: 5rem;
+}
+.form-inline{
+
+
+  margin-left: 55rem;
+  margin-right: 10rem;
+}
+.cardy{
+  height: 150px;
+width: 300px;
+margin-left: 20rem;
+margin-right: 5rem;
+float: right;
+
+}
+/* 지하철 사진 반응형으로만들기 */
+.subway{
+
+max-width: 100%
+height:auto;
+display: block;
+margin-left:auto;
+margin-right:auto;
+padding-bottom: :20px;
+
+}
+/* .imgScrollBox {
+  overflow:scroll;
+  width:100%; padding-bottom:20px;
+  border-style:none;
+
+  scrollbar-face-color:#FFFFFF;
+  scrollbar-3dlight-color:#FFFFFF;
+  scrollbar-highlight-color:#FFFFFF;
+  scrollbar-shadow-color:#000000;
+  scrollbar-darkshadow-color:#FFFFFF;
+  scrollbar-arrow-color:#000000;
+  scrollbar-track-color:#FFFFFF; } */
+  .btn_view { font-weight:normal !important; }
+  .box_layer {position:absolute; width:350px; height:150px; overflow:auto; background:#eaeaea;right:0px; top:0px; z-index:999;border:2px solid #0084dc;
+  -webkit-border-radius:10px; -moz-border-radius:10px; border-radius:10px;}
