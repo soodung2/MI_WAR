@@ -2,13 +2,22 @@
 <html>
   <head>
   </head>
-  <body>
-    <h1>MongoDB Test "타임스퀘어 지하2층 미세먼지outdoor측정값"</h1>
-    <p>Show documents in "time_B2/out" collection</p>
+  <body style="background-color:powderblue;">
+    <h1>타임스퀘어 지하2층 미세먼지</h1>
+    <p>지하2층 외부 미세먼지 상황</p>
     <ul>
-    <% for(var i = 0; i < list.length; i++) {%>
-      <li><%= JSON.stringify(list[i])%></li>
+
+      <li>최종 미세먼지 검사시간 : <%= JSON.stringify(nowdata)%>
+      </li>
+      <li>온도 : <%= JSON.stringify(tempdata)%>
+      </li>
+      <li>습도 : <%= JSON.stringify(humidata)%>
+      </li>
+      <li>PM2.5 : <%= JSON.stringify(pm25data)%>
+      </li>
+      <li>PM10 : <%= JSON.stringify(pm10data)%>
+      </li>
     </ul>
-    <% } %>
+
   </body>
 </html>
