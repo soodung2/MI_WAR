@@ -61,15 +61,4 @@ function startApp(app) {//웹페이지 시작코딩
 startApp(app);//페이지별로 다른데이터베이스에서 값 받아와야해서 일단 메인시작시키고 버튼누를때 db에 접속함
 connectRoutes(app);
 connectErrorHandlers(app);
-// 몽고디비는 비동기식으로 연결되기 때문에 callback이 필요하다.
-/*connectMongoDB(app, function (err) {
-  if (err) {
-    console.log('몽고디비 연결 실패');
-    console.error(err);
-    process.exit(1);
-  }
 
-  connectRoutes(app);
-  connectErrorHandlers(app);
-  startApp(app);
-});*/
