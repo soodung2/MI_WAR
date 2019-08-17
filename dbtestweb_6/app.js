@@ -42,10 +42,9 @@ app.use(bodyParser.json()); // bodyparser가 json 관련 처리를 해줌
 app.use(bodyParser.urlencoded({extended: false})); // urlencoding 해줌
 app.use(cookieParser()); // 쿠키 파서
 
-app.use(express.static('./public'))//정적인 파일 저장하는 디렉토리
+app.use(express.static('./public'))//정적인 파일 저장하는 디렉토리 : 정적 자산이 포함된 디렉토리 이름을 미들웨어 함수인 express.static 에 전달하면
+                                    //파일 직접적으로 제공해줌
 
-// 이코드로 정적인 데이터 못불러와서 위에 코드로 써보기
-app.use(serveStatic(path.join(__dirname, 'public'))); // 정적인 데이터 설정 /  현재 폴더의 public
 
 
 function startApp(app) {//웹페이지 시작코딩
@@ -61,4 +60,3 @@ function startApp(app) {//웹페이지 시작코딩
 startApp(app);//페이지별로 다른데이터베이스에서 값 받아와야해서 일단 메인시작시키고 버튼누를때 db에 접속함
 connectRoutes(app);
 connectErrorHandlers(app);
-
