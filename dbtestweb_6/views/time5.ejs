@@ -30,13 +30,58 @@
 
 <head>
 
+   <!-- 부트 스트랩 기본 CDN 연결  -->
+
+   <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
+
+
+
+   <!-- 부트 스트랩 민트 와치 cdn 연결 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/minty/bootstrap.min.css">
+   <!-- 내가 조정하는 정적 stylesheet/css 파일 연결 -->
+   <link rel="stylesheet" href="/stylesheets/time5.css">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">MI_WAR</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Service</a>
+        </li>
+
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Charts</title>
+  <title>영등포역</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -49,23 +94,29 @@
 
 <body id="page-top">
 
+ <!-- 지하철 이미지  -->
+
+ <img class="subwaylogoimg"  src="imgfile/영등포구청역.JPG" style="max-width: 20%; height: auto;">
+
+ <!-- 역에 대한 정보가 들어갈 body 부분 -->
+
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Charts</h1>
-          <p class="mb-4">Chart.js is a third party plugin that is used to generate the charts in this theme. The charts below have been customized - for further customization options, please visit the <a target="_blank" href="https://www.chartjs.org/docs/latest/">official Chart.js documentation</a>.</p>
+
 
           <!-- Content Row -->
           <div class="row">
 
-            <div class="col-xl-8 col-lg-7">
+<!-- 반응형으로 만들엇서염 -->
+<!-- 그래프부분 -->
+            <div class="col-md-6 col-xs-8">
 
               <!-- Area Chart -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">시간별 미세먼지 농도</h6>
                 </div>
                 <div class="card-body">
                   <div class="chart-area">
@@ -75,48 +126,74 @@
                   Styling for the area chart can be found in the <code>/js/demo/chart-area-demo.js</code> file.
                 </div>
               </div>
+             </div>
+<!-- 미세먼지 정보 들어가는 패널 -->
+            <div class="col-md-6 col-xs-8">
+            <div class="panel panel-default">
+              <div class="panel-heading">미세먼지 상태</div>
+              <div class="panel-body">
 
-              <!-- Bar Chart -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
-                </div>
-                <div class="card-body">
-                  <div class="chart-bar">
-                    <canvas id="myBarChart"></canvas>
-                  </div>
-                  <hr>
-                  Styling for the bar chart can be found in the <code>/js/demo/chart-bar-demo.js</code> file.
-                </div>
-              </div>
+                <li>PM2.5 : <%= JSON.stringify(pm25data)%>
+                </li>
+                <li>PM10 : <%= JSON.stringify(pm10data)%>
+                </li>
 
-            </div>
-
-            <!-- Donut Chart -->
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <hr>
-                  Styling for the donut chart can be found in the <code>/js/demo/chart-pie-demo.js</code> file.
-                </div>
               </div>
             </div>
-          </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">온/습도 상태</h3>
+              </div>
+              <div class="panel-body">
+                <li>온도 : <%= JSON.stringify(tempdata)%>
+                </li>
+                <li>습도 : <%= JSON.stringify(humidata)%>
+                </li>
+              </div>
+            </div>
 
         </div>
-        <!-- /.container-fluid -->
 
       </div>
-      <!-- End of Main Content -->
 
+<!-- 역 근처 건물 상세 페이지로 넘어가는 썸네일 부분 -->
+      <!-- End of Main Content -->
+      <div class="row">
+       <div class="col-sm-6 col-md-4">
+         <div class="thumbnail">
+           <img src="..." alt="...">
+           <div class="caption">
+             <h3>Thumbnail label</h3>
+             <p>...</p>
+             <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+           </div>
+         </div>
+       </div>
+
+
+
+       <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="https://post-phinf.pstatic.net/MjAxODA0MDZfOTkg/MDAxNTIyOTk4OTM3MzE5.P9ykDqnnOfgDXWYnvvouBX7Zt66sBASLmwTOM9RzFT0g.rI3yVBCuLEBf13cM3a0GPXiJKl10tJ1gEWyqXkVYPmEg.JPEG/image_7355822171522998926202.jpg?type=w1200" alt="...">
+      <div class="caption">
+        <h3>영등포 타임스퀘어</h3>
+        <p>영등포 타임스퀘어 미세먼지 정보 받아 오는 부분</p>
+        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="..." alt="...">
+      <div class="caption">
+        <h3>Thumbnail label</h3>
+        <p>...</p>
+        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>
+     </div>
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
@@ -138,24 +215,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
