@@ -1,0 +1,35 @@
+
+.buildingimg{
+  max-width: 50%
+  height:auto;
+  display: block;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-top: 40px;
+  margin-bottom: 50px;
+  /* width: 490px; */
+
+
+
+}
+.row{
+
+  max-width: 20%
+  height:auto;
+  display: block;
+  margin-left:auto;
+  margin-right:auto;
+  /* padding-top: 40px; */
+  margin-bottom: 50px;
+
+}
+
+.card-body{
+
+  height:300px;
+
+}
+.panel{
+
+  height: 45%;
+}

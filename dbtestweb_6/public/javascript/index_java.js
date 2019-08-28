@@ -41,7 +41,7 @@ var messages = new Array();
 // optional: bgColor and color to be sent to tooltip
 messages[0] = new Array('https://support.apple.com/library/content/dam/edam/applecare/images/en_US/social/thumbnail/ios11-emoji_2x.png,','합정역: 상태좋음',"#FFFFFF");
 messages[1] = new Array('http://www.webmadang.net/jackman_lecture/script/3_s.jpg','홍대입구: 상태나쁨',"#DDECFF");
-// messages[2] = new Array('test.gif','Test description','black','white');
+messages[2] = new Array('http://www.webmadang.net/jackman_lecture/script/3_s.jpg','영등포구청: 상태 좋음','white');
 
 ////////////////////  END OF CUSTOMIZATION AREA  ///////////////////
 
