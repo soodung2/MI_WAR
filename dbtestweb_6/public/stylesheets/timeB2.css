@@ -1,4 +1,45 @@
 
+
+.place_details .inner_place {
+    min-height: 187px;
+    padding-top: 27px;
+    background: url(//t1.daumcdn.net/localimg/localimages/07/2017/pc/bg_shadow_side.png)
+    repeat-y;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.buildingtitle{
+
+padding-top: 50px;
+padding-bottom: 50px;
+/* padding-left: 100px; */
+text-align: center;
+font-family: 'Jua', sans-serif;
+ font-size: 50px;
+
+
+
+}
+
+
 .buildingimg{
   max-width: 50%
   height:auto;
@@ -33,3 +74,12 @@
 
   height: 45%;
 }
+
+.map_img{
+
+margin-top: 50px;
+height: 75%;
+
+
+
+} */
