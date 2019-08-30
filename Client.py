@@ -25,7 +25,7 @@ else :
 
 def get_post(line) :
   post = {
-    "PM25":line[line.find('5:')+2:line.find('\t')],"PM10":line[line.find('10:')+2:line.find('\t',20)],
+    "PM25":line[line.find('5:')+2:line.find('\t')],"PM10":line[line.find('10:')+3:line.find('\t',20)],
     "Humi":line[line.find('y:')+2:line.find('%')],"Temp":line[line.find('e:')+2:line.find('*')], "NOW":str(datetime.datetime.now())
   }
   return post
