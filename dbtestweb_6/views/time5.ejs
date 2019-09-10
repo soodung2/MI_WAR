@@ -27,7 +27,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
    <!-- 부트 스트랩 기본 CDN 연결  -->
@@ -40,10 +39,6 @@
 
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-
-
-
 
    <!-- 부트 스트랩 민트 와치 cdn 연결 -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/minty/bootstrap.min.css">
@@ -81,15 +76,17 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+
   <title>영등포역</title>
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <!--<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">-->
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
 </head>
 
 <body id="page-top">
@@ -114,16 +111,108 @@
             <div class="col-md-6 col-xs-8">
 
               <!-- Area Chart -->
-              <div class="card shadow mb-4">
+              <div class="card shadow mb-4" >
                 <div class="card-header py-3">
                   <h6 class="m-0 font-weight-bold text-primary">시간별 미세먼지 농도</h6>
                 </div>
                 <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
+                  <div class="container">
+                    <canvas id="myChart"></canvas>
                   </div>
-                  <hr>
-                  Styling for the area chart can be found in the <code>/js/demo/chart-area-demo.js</code> file.
+                  <script>
+                  var now = JSON.stringify("<%=nowdata%>",replacer);
+                  var now1 = JSON.stringify("<%=nowdata1%>",replacer);
+                  var now2 = JSON.stringify("<%=nowdata2%>",replacer);
+                  var now3 = JSON.stringify("<%=nowdata3%>",replacer);
+                  var now4 = JSON.stringify("<%=nowdata4%>",replacer);
+                    function replacer(key,value){//nowdata string이 너무 길어서 그래프 망가짐. 길이 제한해주는 함수
+                      var str=value;
+                      var str_length=value.length;
+                      var i=0;
+                      var max_length = 19;
+                      var ko_byte=0;
+                      var li_len=0;
+                      var one_char="";
+                      var str2 = "";
+                      for(i=0;i<str_length;i++){
+                        one_char=str.charAt(i);
+                        ko_byte++;
+                      }
+                      if(ko_byte<=max_length){
+                        li_len=i+1;
+                      }
+                      if(ko_byte>max_length){
+                        str2=str.substr(0,max_length);
+                        value=str2;
+                        return value;
+                      }
+                    }
+                    var pm25 = ("<%=pm25data%>")
+                    var temp = ("<%=tempdata%>")
+
+                    let myChart = document.getElementById("myChart");
+                    let myLineChart = new Chart(myChart, {
+                      type: 'line',
+                      data: {
+                        labels: [now4, now3, now2, now1, now],
+                        datasets: [{
+                          label: "초미세먼지",
+                          lineTension: 0.3,
+                          backgroundColor: "rgba(2,117,216,0.2)",
+                          borderColor: "rgba(2,117,216,1)",
+                          pointRadius: 5,
+                          pointBackgroundColor: "rgba(2,117,216,1)",
+                          pointBorderColor: "rgba(255,255,255,0.8)",
+                          pointHoverRadius: 5,
+                          pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                          pointHitRadius: 50,
+                          pointBorderWidth: 2,
+                          data: [("<%=pm25data4%>"), ("<%=pm25data3%>"), ("<%=pm25data2%>"), ("<%=pm25data1%>"), ("<%=pm25data%>")],
+                        },{
+                          label: "습도",
+                          lineTension: 0.3,
+                          backgroundColor: "rgba(255,0,255,0.2)",
+                          borderColor: "rgba(255,0,255,1)",
+                          pointRadius: 5,
+                          pointBackgroundColor: "rgba(255,0,255,1)",
+                          pointBorderColor: "rgba(255,255,255,0.8)",
+                          pointHoverRadius: 5,
+                          pointHoverBackgroundColor: "rgba(255,0,255,1)",
+                          pointHitRadius: 50,
+                          pointBorderWidth: 2,
+                          data: [("<%=humidata4%>"), ("<%=humidata3%>"), ("<%=humidata2%>"), ("<%=humidata1%>"), ("<%=humidata%>")],
+                        }],
+                      },
+                      options: {
+                        scales: {
+                          xAxes: [{
+                            time: {
+                              unit: 'date'
+                            },
+                            gridLines: {
+                              display: false
+                            },
+                            ticks: {
+                              maxTicksLimit: 7
+                            }
+                          }],
+                          yAxes: [{
+                            ticks: {
+                              min: 0,
+                              max: 100,
+                              maxTicksLimit: 5
+                            },
+                            gridLines: {
+                              color: "rgba(0, 0, 0, .125)",
+                            }
+                          }],
+                        },
+                        legend: {
+                          display: false
+                        }
+                      }
+                    });
+                  </script>
                 </div>
               </div>
              </div>
@@ -217,23 +306,7 @@
 
 
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
-
-  <!-- Page level plugins -->
-  <script src="vendor/chart.js/Chart.min.js"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
-  <script src="js/demo/chart-bar-demo.js"></script>
 
 </body>
 
