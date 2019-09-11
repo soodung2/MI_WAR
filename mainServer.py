@@ -21,14 +21,6 @@ def client_server(user, addr) :
             print('Send Success')
     return
 
-try :
-    connection = pymongo.MongoClient('mongodb://ec2-13-125-244-112.ap-northeast-2.compute.amazonaws.com:27017')
-except :
-    print("MongoDB Connection Error")
-    sys.exit()
-else :
-    print('MongoDB Connection Success')
-
 #Database name='test' & Collection name='Null'
 #Insert document
 def insert_post(loc,value) :
