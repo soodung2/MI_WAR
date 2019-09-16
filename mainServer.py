@@ -3,6 +3,8 @@ import pymongo
 import json
 import thread
 
+get_port = 8080
+refresh_port = 4040
 
 def client_server(user, addr) :
     loc = user.recv(1024)
@@ -18,14 +20,6 @@ def client_server(user, addr) :
         else :
             print('Send Success')
     return
-
-try :
-    connection = pymongo.MongoClient('mongodb://ec2-13-125-244-112.ap-northeast-2.compute.amazonaws.com:27017')
-except :
-    print("MongoDB Connection Error")
-    sys.exit()
-else :
-    print('MongoDB Connection Success')
 
 #Database name='test' & Collection name='Null'
 #Insert document
@@ -49,15 +43,18 @@ if __name__ == '__main__' :
         print('MongoDB Connection Success')
     #AF_INET-v4, AF_INET6-v6
     #SOCK_STREAM-TCP,SOCK_DGRAM-UDP
-    server = socket(AF_INET, SOCK_STREAM)
+    get_server = socket(AF_INET, SOCK_STREAM)
+    refresh_server = socket(AF_INET, SOCK_STREAM)
     #bind((addr,port#)),''->INADDR_ANY,' '->Broadcast
-    server.bind(('',8080))
+    get_server.bind(('',get_port))
+    refresh_server.bind(('',refresh_port))
     #lisetn-Maximum user
-    server.listen(10)
+    get_server.listen(10)
+    refresh_server.listen(100)
     print('Waiting Connect')
     while True :
         try :
-            user, addr = server.accept()
+            user, addr = get_server.accept()
             print('connected : ', user)
             thread.start_new_thread(client_server,(user, addr))
         except Exception as e :
