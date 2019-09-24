@@ -5,8 +5,10 @@ var logger = require('morgan'); //log를 남겨줌
 var cookieParser = require('cookie-parser'); // 쿠키를 처리
 var bodyParser = require('body-parser'); // http가 전송 될때 바디를 처리
 
-//var connectMongoDB = require('./src/connectMongoDB');
-//var connectMongoDB_2 = require('./src/connectMongoDB_2');
+// 메인에서 한번만 연동하게 할라고 테스트 해보는 코드
+var connectMongoDB = require('./src/connectMongoDB');
+
+
 var connectRoutes = require('./src/connectRoutes');
 var connectErrorHandlers = require('./src/connectErrorHandlers');
 
@@ -57,6 +59,18 @@ function startApp(app) {//웹페이지 시작코딩
     console.log('서버가 ' + port + '번 포트에서 실행 중입니다.!!');
   });
 }
-startApp(app);//페이지별로 다른데이터베이스에서 값 받아와야해서 일단 메인시작시키고 버튼누를때 db에 접속함
-connectRoutes(app);
-connectErrorHandlers(app);
+// startApp(app);//페이지별로 다른데이터베이스에서 값 받아와야해서 일단 메인시작시키고 버튼누를때 db에 접속함
+// connectRoutes(app);
+// connectErrorHandlers(app);
+
+connectMongoDB(app, function (err) {
+  if (err) {
+    console.log('몽고디비 연결 실패');
+    console.error(err);
+    process.exit(1);
+  }
+
+  connectRoutes(app);
+  connectErrorHandlers(app);
+  startApp(app);
+});
