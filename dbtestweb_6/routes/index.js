@@ -22,6 +22,7 @@ router.get('/', function (req, res, next) {
       return;
     }
     res.render('index', {list: docs});
+
   });
 });
 

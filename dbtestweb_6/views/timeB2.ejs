@@ -2,7 +2,10 @@
 <html>
   <head>
 
-    <!-- 부트 스트랩 기본 CDN 연결  -->
+    <!-- 현재 미세먼지 차트 만들라고 연동하는거 -->
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2014.1.528/js/kendo.all.min.js"></script>
+    <link href="http://cdn.kendostatic.com/2014.1.528/styles/kendo.dataviz.min.css" rel="stylesheet" />
 
     <!-- 합쳐지고 최소화된 최신 CSS -->
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -18,12 +21,15 @@
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5bea20aee2377b8b95bc5b39032cd81&libraries=services"></script>
   <!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5bea20aee2377b8b95bc5b39032cd81"></script> -->
 <!-- 영등포 타임 스퀘어 글씨체 -->
-   <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
+   <!-- <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet"> -->
+   <link href="https://fonts.googleapis.com/css?family=Gothic+A1:600&display=swap" rel="stylesheet">
 
      <!-- 부트 스트랩 민트 와치 cdn 연결 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/minty/bootstrap.min.css">
      <!-- 내가 조정하는 정적 stylesheet/css 파일 연결 -->
      <link rel="stylesheet" href="/stylesheets/timeB2.css">
+
+
 
      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
        <a class="navbar-brand" href="#">MI_WAR</a>
@@ -44,10 +50,10 @@
            </li>
 
          </ul>
-         <form class="form-inline my-2 my-lg-0">
+         <!-- <form class="form-inline my-2 my-lg-0">
            <input class="form-control mr-sm-2" type="text" placeholder="Search">
            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-         </form>
+         </form> -->
        </div>
      </nav>
   </head>
@@ -62,10 +68,380 @@
     <meta name="author" content="">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
  <!-- 혹시 몰라서 그냥 긁어와본거  -->
+<!-- 패널 -->
+<div class="parentdiv">
+ <div class="titlebox panel panel-default">
+   <div class="panel-body">
+    <div class="titlestyle_en">  time square </div>
+    <div class="titlestyle"> 타임스퀘어</div>
+
+   </div>
+ </div>
+ <div class="detailbox">
+  <div>
+    <div class = "col-md-6">
+  <p><h3>상세정보</h3></p>
+  <ul class="detail">
+     <li>
+       <span class="glyphicon glyphicon-map-marker">서울 영등포구 영중로 15 (우)07305
+       </span>
+     </li>
+     <li>
+       <span class="glyphicon glyphicon-globe"><a href="www.timessquare.co.kr">www.timessquare.co.kr</a>
+       </span>
+     </li>
+     <li>
+       <span class="glyphicon glyphicon-earphone">02-2638-2000 </span>
+     </li>
+  </ul>
+  <a href="https://map.kakao.com/link/to/11411449"><img class="mapway"  src="imgfile/길찾기.JPG" style="max-width: 50%; height: auto;"></a>
+
+  <style>
+ul{
+   list-style:none;
+   }
+</style>
+</div>
+<div class="col-md-6">
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+    <div class="container-fluid">
+        <!-- <div class="buildingtitle">  영등포타임스퀘어  </div> -->
+ <!-- 건물 이미지  -->
+<!-- <div class="row"> -->
+<!-- <div class="col-md-6 col-xs-8">
+<img class="buildingimg" style="max-width: 100%; height: auto;"src="https://post-phinf.pstatic.net/MjAxODA0MDZfOTkg/MDAxNTIyOTk4OTM3MzE5.P9ykDqnnOfgDXWYnvvouBX7Zt66sBASLmwTOM9RzFT0g.rI3yVBCuLEBf13cM3a0GPXiJKl10tJ1gEWyqXkVYPmEg.JPEG/image_7355822171522998926202.jpg?type=w1200" >
+</div> -->
+
+<!-- <div class="col-md-6 col-xs-8"> -->
+<a href="https://map.kakao.com/link/to/11411449"><div class="map_img" id="map"  style="width:100%;height:300px;"></div></a>
+
+
+</div>
+</div>
+<!-- 현재미세먼지정보 -->
+<div class="row">
+
+  <div class="nowstate_part col-md-6">
 
 
 
-    <title>영등포타임스퀘어</title>
+
+
+    <!-- 표들어가는거 -->
+  <div class="card shadow mb-4 tablecard">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">현재 대기 정보</h6>
+    </div>
+    <div class="card-body">
+      <div class="container">
+
+
+        <table class="table table-striped statetable">
+  <thead>
+    <tr>
+      <th scope="col">항목</th>
+      <th scope="col">측정값</th>
+      <th scope="col">단위</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">미세먼지PM10</th>
+      <td><%= JSON.stringify(pm10data)%></td>
+      <td>㎍/㎥</td>
+
+    </tr>
+    <tr>
+      <th scope="row">초미세먼지PM25</th>
+      <td><%= JSON.stringify(pm25data)%></td>
+      <td>㎍/㎥</td>
+
+    </tr>
+    <tr>
+      <th scope="row">온도</th>
+      <td><%= JSON.stringify(tempdata)%></td>
+      <td>℃</td>
+
+    </tr>
+
+    <tr>
+      <th scope="row">습도</th>
+      <td><%= JSON.stringify(humidata)%></td>
+      <td>%</td>
+
+    </tr>
+  </tbody>
+  </table>
+
+
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+<div class="nowstate_part col-md-6">
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">현재 미세먼지 등급</h6>
+  </div>
+  <div class="card-body">
+    <div class="container">
+<div id="example" class="k-content">
+    <div class="row nowstate">
+            <div id="gauge-container" >
+                <div id="gauge"></div>
+                <div >
+                  <img class="pm10table"  src="imgfile/PM10기준표.JPG" style="max-width: 100%; height: auto;">
+
+                </div>
+            </div>
+
+            <!-- <div >
+              <img class="pm10table"  src="imgfile/PM10기준표.JPG" style="max-width: 40%; height: auto;">
+
+            </div> -->
+            <!-- <div class="col-md-6"></div> -->
+    </div>
+            <script>
+            // var pm10 = ("<%=pm10data%>")
+
+
+                function createGauge() {
+                    $("#gauge").kendoLinearGauge({
+
+                        pointer: {
+                            value: 93,
+                            shape: "arrow",
+                            color: "#040117"
+
+                        },
+
+                        scale: {
+                            majorUnit: 20,
+                            minorUnit: 5,
+                            max: 200,
+                            ranges: [
+                                {
+                                    from: 0,
+                                    to: 30,
+                                    color: "#34b1eb"
+                                }, {
+                                    from: 31,
+                                    to: 50,
+                                    color: "#4c9c52"
+                                }, {
+                                    from: 51,
+                                    to: 150,
+                                    color: "#fcca4c"
+                                },
+                                {
+                                    from: 151,
+                                    to: 200,
+                                    color: "#f2461f"
+                                }
+                            ]
+                        }
+                    });
+                }
+
+                $(document).ready(function() {
+                    createGauge();
+
+                    $(".box").bind("change", refresh);
+
+                    $(document).bind("kendo:skinChange", function(e) {
+                        createGauge();
+                        refresh();
+                    });
+
+                    window.configuredRanges = $("#gauge").data("kendoLinearGauge").options.scale.ranges;
+                });
+
+                function refresh() {
+                    var gauge = $("#gauge").data("kendoLinearGauge"),
+                        showLabels = $("#labels").prop("checked"),
+                        showRanges = $("#ranges").prop("checked"),
+                        isVertical = $("#vertical").prop("checked"),
+                        positionInputs = $("input[name='labels-position']"),
+                        options = gauge.options;
+
+                    options.transitions = false;
+                    options.scale.labels.visible = showLabels;
+                    options.scale.vertical = isVertical;
+                    options.scale.ranges = showRanges ? window.configuredRanges : [];
+
+                    $("#gauge-container").toggleClass("horizontal", !isVertical);
+
+                    gauge.redraw();
+                }
+            </script>
+
+        </div>
+   </div>
+ </div>
+</div>
+
+</div>
+
+<!-- 카드 하나 더 집어 넣자 -->
+
+
+  <!-- <div class =""> -->
+
+</div>
+
+<!-- </div> -->
+<!-- 그래프부분 -->
+            <!-- <div class="col-md-6 col-xs-8"> -->
+            <div class="graph_part">
+              <!-- Area Chart -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">시간별 미세먼지 농도</h6>
+                </div>
+                <div class="card-body">
+                  <div class="container">
+                    <canvas id="myChart"></canvas>
+                  </div>
+                  <script>
+                  var now = JSON.stringify("<%=nowdata%>",replacer);
+                  var now1 = JSON.stringify("<%=nowdata1%>",replacer);
+                  var now2 = JSON.stringify("<%=nowdata2%>",replacer);
+                  var now3 = JSON.stringify("<%=nowdata3%>",replacer);
+                  var now4 = JSON.stringify("<%=nowdata4%>",replacer);
+                    function replacer(key,value){
+                      var str=value;
+                      var str_length=value.length;
+                      var i=0;
+                      var max_length = 19;
+                      var ko_byte=0;
+                      var li_len=0;
+                      var one_char="";
+                      var str2 = "";
+                      for(i=0;i<str_length;i++){
+                        one_char=str.charAt(i);
+                        ko_byte++;
+                      }
+                      if(ko_byte<=max_length){
+                        li_len=i+1;
+                      }
+                      if(ko_byte>max_length){
+                        str2=str.substr(0,max_length);
+                        value=str2;
+                        return value;
+                      }
+                    }
+                    var pm25 = ("<%=pm25data%>")
+                    var temp = ("<%=tempdata%>")
+
+                    let myChart = document.getElementById("myChart");
+                    let myLineChart = new Chart(myChart, {
+                      type: 'line',
+                      data: {
+                        labels: [now4, now3, now2, now1, now],
+                        datasets: [{
+                          label: "초미세먼지",
+                          lineTension: 0.3,
+                          backgroundColor: "rgba(2,117,216,0.2)",
+                          borderColor: "rgba(2,117,216,1)",
+                          pointRadius: 5,
+                          pointBackgroundColor: "rgba(2,117,216,1)",
+                          pointBorderColor: "rgba(255,255,255,0.8)",
+                          pointHoverRadius: 5,
+                          pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                          pointHitRadius: 50,
+                          pointBorderWidth: 2,
+                          data: [("<%=pm25data4%>"), ("<%=pm25data3%>"), ("<%=pm25data2%>"), ("<%=pm25data1%>"), ("<%=pm25data%>")],
+                        },{
+                          label: "습도",
+                          lineTension: 0.3,
+                          backgroundColor: "rgba(255,0,255,0.2)",
+                          borderColor: "rgba(255,0,255,1)",
+                          pointRadius: 5,
+                          pointBackgroundColor: "rgba(255,0,255,1)",
+                          pointBorderColor: "rgba(255,255,255,0.8)",
+                          pointHoverRadius: 5,
+                          pointHoverBackgroundColor: "rgba(255,0,255,1)",
+                          pointHitRadius: 50,
+                          pointBorderWidth: 2,
+                          data: [("<%=humidata4%>"), ("<%=humidata3%>"), ("<%=humidata2%>"), ("<%=humidata1%>"), ("<%=humidata%>")],
+                        }],
+                      },
+                      options: {
+                        scales: {
+                          xAxes: [{
+                            time: {
+                              unit: 'date'
+                            },
+                            gridLines: {
+                              display: false
+                            },
+                            ticks: {
+                              maxTicksLimit: 7
+                            }
+                          }],
+                          yAxes: [{
+                            ticks: {
+                              min: 0,
+                              max: 100,
+                              maxTicksLimit: 5
+                            },
+                            gridLines: {
+                              color: "rgba(0, 0, 0, .125)",
+                            }
+                          }],
+                        },
+                        legend: {
+                          display: false
+                        }
+                      }
+                    });
+                  </script>
+
+                </div>
+                <!-- 날짜별 그래프 변동되게 버튼  -->
+                <ul class="list_day">
+                <li data-day="sunday" class="">
+                    <a href="#none" class="link_day">일</a>
+                </li>
+                <li data-day="monday" class="">
+                    <a href="#none" class="link_day">월</a>
+                </li>
+                <li data-day="tuesday" class="">
+                    <a href="#none" class="link_day">화</a>
+                </li>
+                <li data-day="wednesday" class="">
+                    <a href="#none" class="link_day">수</a>
+                </li>
+                <li data-day="thursday" class="">
+                    <a href="#none" class="link_day">목</a>
+                </li>
+                <li data-day="friday" class="">
+                    <a href="#none" class="link_day">금</a>
+                </li>
+                <li data-day="saturday" class="on">
+                    <a href="#none" class="link_day">토</a>
+                </li>
+            </ul>
+                <!-- 일 월 화 수 목 금 토 -->
+              </div>
+             </div>
+
+
+
+</div>
+</div>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -78,58 +454,18 @@
 
   <body id="page-top">
       <div class="container-fluid">
-          <div class="buildingtitle">  영등포타임스퀘어  </div>
+          <!-- <div class="buildingtitle">  영등포타임스퀘어  </div> -->
    <!-- 건물 이미지  -->
-<div class="row">
- <div class="col-md-6 col-xs-8">
-<img class="buildingimg" style="max-width: 97%; height: auto;"src="https://post-phinf.pstatic.net/MjAxODA0MDZfOTkg/MDAxNTIyOTk4OTM3MzE5.P9ykDqnnOfgDXWYnvvouBX7Zt66sBASLmwTOM9RzFT0g.rI3yVBCuLEBf13cM3a0GPXiJKl10tJ1gEWyqXkVYPmEg.JPEG/image_7355822171522998926202.jpg?type=w1200" >
-</div>
- <!-- 지도들어가는 위치  -->
+<!-- <div class="row"> -->
+ <!-- <div class="col-md-6 col-xs-8">
+<img class="buildingimg" style="max-width: 100%; height: auto;"src="https://post-phinf.pstatic.net/MjAxODA0MDZfOTkg/MDAxNTIyOTk4OTM3MzE5.P9ykDqnnOfgDXWYnvvouBX7Zt66sBASLmwTOM9RzFT0g.rI3yVBCuLEBf13cM3a0GPXiJKl10tJ1gEWyqXkVYPmEg.JPEG/image_7355822171522998926202.jpg?type=w1200" >
+</div> -->
 
- <!-- <p style="margin-top:-12px">
-     <em class="link">
-         <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
-             혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.
-         </a>
-     </em>
- </p> -->
- <div class="col-md-6 col-xs-8">
+ <!-- <div class="col-md-6 col-xs-8"> -->
  <a href="https://map.kakao.com/link/to/11411449"><div class="map_img" id="map"  style="width:90%;height:300px;"></div></a>
 
 
- <!-- <script>
- var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-     mapOption = {
-         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-         level: 3 // 지도의 확대 레벨
-     };
- var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
- // 마커를 표시할 위치입니다
- var position =  new kakao.maps.LatLng(33.450701, 126.570667);
- // 마커를 생성합니다
- var marker = new kakao.maps.Marker({
-   position: position,
-   clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
- });
- // 아래 코드는 위의 마커를 생성하는 코드에서 clickable: true 와 같이
- // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
- // marker.setClickable(true);
- // 마커를 지도에 표시합니다.
- marker.setMap(map);
- // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
- var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-     iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
- // 인포윈도우를 생성합니다
- var infowindow = new kakao.maps.InfoWindow({
-     content : iwContent,
-     removable : iwRemoveable
- });
- // 마커에 클릭이벤트를 등록합니다
- kakao.maps.event.addListener(marker, 'click', function() {
-       // 마커 위에 인포윈도우를 표시합니다
-       infowindow.open(map, marker);
- });
- </script> -->
+
  <script>
  var mapContainer = document.getElementById('map'), // 지도를 표시할 div
      mapOption = {
@@ -163,175 +499,12 @@
 
 
 
- </div>
-</div>
+ <!-- </div> -->
+<!-- </div> -->
 
- <!-- <div class="col-md-6 col-xs-8">
-</div>
-</div> -->
 
-            <!-- Content Row -->
-            <div class="row">
 
-  <!-- 반응형으로 만들엇서염 -->
-  <!-- 그래프부분 -->
-              <div class="col-md-6 col-xs-8">
 
-                <!-- Area Chart -->
-                <div class="card shadow mb-4">
-                  <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">시간별 미세먼지 농도</h6>
-                  </div>
-                  <div class="card-body">
-                    <div class="container">
-                      <canvas id="myChart"></canvas>
-                    </div>
-                    <script>
-                    var now = JSON.stringify("<%=nowdata%>",replacer);
-                    var now1 = JSON.stringify("<%=nowdata1%>",replacer);
-                    var now2 = JSON.stringify("<%=nowdata2%>",replacer);
-                    var now3 = JSON.stringify("<%=nowdata3%>",replacer);
-                    var now4 = JSON.stringify("<%=nowdata4%>",replacer);
-                      function replacer(key,value){
-                        var str=value;
-                        var str_length=value.length;
-                        var i=0;
-                        var max_length = 19;
-                        var ko_byte=0;
-                        var li_len=0;
-                        var one_char="";
-                        var str2 = "";
-                        for(i=0;i<str_length;i++){
-                          one_char=str.charAt(i);
-                          ko_byte++;
-                        }
-                        if(ko_byte<=max_length){
-                          li_len=i+1;
-                        }
-                        if(ko_byte>max_length){
-                          str2=str.substr(0,max_length);
-                          value=str2;
-                          return value;
-                        }
-                      }
-                      var pm25 = ("<%=pm25data%>")
-                      var temp = ("<%=tempdata%>")
-
-                      let myChart = document.getElementById("myChart");
-                      let myLineChart = new Chart(myChart, {
-                        type: 'line',
-                        data: {
-                          labels: [now4, now3, now2, now1, now],
-                          datasets: [{
-                            label: "초미세먼지",
-                            lineTension: 0.3,
-                            backgroundColor: "rgba(2,117,216,0.2)",
-                            borderColor: "rgba(2,117,216,1)",
-                            pointRadius: 5,
-                            pointBackgroundColor: "rgba(2,117,216,1)",
-                            pointBorderColor: "rgba(255,255,255,0.8)",
-                            pointHoverRadius: 5,
-                            pointHoverBackgroundColor: "rgba(2,117,216,1)",
-                            pointHitRadius: 50,
-                            pointBorderWidth: 2,
-                            data: [("<%=pm25data4%>"), ("<%=pm25data3%>"), ("<%=pm25data2%>"), ("<%=pm25data1%>"), ("<%=pm25data%>")],
-                          },{
-                            label: "습도",
-                            lineTension: 0.3,
-                            backgroundColor: "rgba(255,0,255,0.2)",
-                            borderColor: "rgba(255,0,255,1)",
-                            pointRadius: 5,
-                            pointBackgroundColor: "rgba(255,0,255,1)",
-                            pointBorderColor: "rgba(255,255,255,0.8)",
-                            pointHoverRadius: 5,
-                            pointHoverBackgroundColor: "rgba(255,0,255,1)",
-                            pointHitRadius: 50,
-                            pointBorderWidth: 2,
-                            data: [("<%=humidata4%>"), ("<%=humidata3%>"), ("<%=humidata2%>"), ("<%=humidata1%>"), ("<%=humidata%>")],
-                          }],
-                        },
-                        options: {
-                          scales: {
-                            xAxes: [{
-                              time: {
-                                unit: 'date'
-                              },
-                              gridLines: {
-                                display: false
-                              },
-                              ticks: {
-                                maxTicksLimit: 7
-                              }
-                            }],
-                            yAxes: [{
-                              ticks: {
-                                min: 0,
-                                max: 100,
-                                maxTicksLimit: 5
-                              },
-                              gridLines: {
-                                color: "rgba(0, 0, 0, .125)",
-                              }
-                            }],
-                          },
-                          legend: {
-                            display: false
-                          }
-                        }
-                      });
-                    </script>
-
-                  </div>
-                </div>
-               </div>
-  <!-- 미세먼지 정보 들어가는 패널 -->
-              <div class="col-md-6 col-xs-8">
-              <div class="panel panel-default">
-                <div class="panel-heading">미세먼지 상태</div>
-                <div class="panel-body">
-                  <li>PM2.5 : <%= JSON.stringify(pm25data)%>
-                  </li>
-                  <li>PM10 : <%= JSON.stringify(pm10data)%>
-                  </li>
-
-                </div>
-              </div>
-
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h3 class="panel-title">온/습도 상태</h3>
-                </div>
-                <div class="panel-body">
-                  <li>온도 : <%= JSON.stringify(tempdata)%>
-                  </li>
-                  <li>습도 : <%= JSON.stringify(humidata)%>
-                  </li>
-                </div>
-              </div>
-
-          </div>
-
-        </div>
-        <row>
-          <div>
-
-          </div>
-        </row>
-
-    <!-- <h1>타임스퀘어 지하2층 미세먼지</h1>
-    <p>지하2층 외부 미세먼지 상황</p>
-    <ul>
-      <li>최종 미세먼지 검사시간 : <%= JSON.stringify(nowdata)%>
-      </li>
-      <li>온도 : <%= JSON.stringify(tempdata)%>
-      </li>
-      <li>습도 : <%= JSON.stringify(humidata)%>
-      </li>
-      <li>PM2.5 : <%= JSON.stringify(pm25data)%>
-      </li>
-      <li>PM10 : <%= JSON.stringify(pm10data)%>
-      </li>
-    </ul> -->
 
   </body>
 </html>

@@ -1,4 +1,52 @@
 
+.parentdiv{
+
+height: auto; width: 100%;
+/* background-color: #dcdcdc; */
+
+
+
+}
+.detailbox{
+
+margin-top: 30px;
+margin-left: 100px;
+margin-right:100px;
+
+}
+.titlebox{
+
+       position: relative;
+      /* z-index: 10;
+      width: 744px;
+      padding-bottom: 4px;
+      margin: -64px auto 0;
+      text-align: center;  */
+
+      width : 1060px;
+      /* padding-left: 500px; */
+
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      padding-top: 40px;
+      padding-bottom: 40px;
+
+
+}
+.titlestyle{
+
+  font-family: 'Gothic A1', sans-serif;
+  font-size: 40px;
+  color: black;
+
+}
+.titlestyle_en{
+
+  font-size: 10px;
+}
+
+
 .buildingimg{
   max-width: 50%
   height:auto;
@@ -29,8 +77,113 @@
   height:auto;
 
 }
-.panel{
+.graph_part{
+
+  width: 100%;
+  height:auto;
+  display: block;
   margin-left:auto;
-  width: 50%;
-  height: 45%;
+  margin-right:auto;
+  align-content: center;
+
+  margin-top: 50px;
+}
+/* 버튼 눌리는 부분 */
+.list_day li {
+    float: left;
+    margin: 0 7px;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.list_day .link_day {
+    display: block;
+    width: 38px;
+    height: 38px;
+    line-height: 34px;
+    background: url(//t1.daumcdn.net/localimg/localimages/07/2017/pc/bg_data.png) no-repeat 0 0;
+    text-align: center;
+
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.list_day {
+    overflow: hidden;
+    width: 500px;
+    padding-top: 15px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+.block{
+  width: 50px;
+}
+
+/* 미세먼지 실시간 데이*/
+#gauge-container {
+    text-align: center;
+    margin-left: 30px;
+    background: transparent url("../content/dataviz/gauge/linear-gauge-container.png") no-repeat 50% 50%;
+    padding: 18px;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+#gauge-container.horizontal {
+    background-image: url("../content/dataviz/gauge/linear-gauge-container-h.png");
+}
+
+#gauge {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto 0;
+    /* margin-left: 100px; */
+}
+/* .nowstate{
+
+  height: auto;
+
+} */
+.pm10table{
+  /* margin-left: 100px; */
+  margin-top: 10px;
+}
+/* 현재미세먼지정보 감싸는 카드 부분 */
+.nowstate_part{
+
+  width: auto;
+  height:auto;
+  display: block;
+  margin-left:auto;
+  margin-right:auto;
+  align-content: center;
+
+  margin-top: 50px;
+}
+
+.list-group-item{
+
+height: 70.5px;
+
+}
+.tablecard{
+
+  align-items: : center;
+  height: 97%;
+}
+.table{
+
+  margin-top: 50px;
+  height: 70%;
+}
+.mapway{
+  width: 20%;
+}
+.detail{
+  font-family: 'Gothic A1', sans-serif;
+  font-size: 20px;
+
 }
