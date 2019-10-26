@@ -1,26 +1,4 @@
-<!-- <!DOCTYPE html>
-<html>
-  <head>
-  </head>
-  <body style="background-color:powderblue;">
-    <h1>타임스퀘어 5층 미세먼지</h1>
-    <p>5층 외부 미세먼지 상황</p>
-    <ul>
 
-      <li>최종 미세먼지 검사시간 : <%= JSON.stringify(nowdata)%>
-      </li>
-      <li>온도 : <%= JSON.stringify(tempdata)%>
-      </li>
-      <li>습도 : <%= JSON.stringify(humidata)%>
-      </li>
-      <li>PM2.5 : <%= JSON.stringify(pm25data)%>
-      </li>
-      <li>PM10 : <%= JSON.stringify(pm10data)%>
-      </li>
-    </ul>
-
-  </body>
-</html> -->
 
 
 <!-- 템플릿적용시켜보기 -->
@@ -30,6 +8,9 @@
 <head>
 
    <!-- 부트 스트랩 기본 CDN 연결  -->
+   <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+   <script src="http://cdn.kendostatic.com/2014.1.528/js/kendo.all.min.js"></script>
+   <link href="http://cdn.kendostatic.com/2014.1.528/styles/kendo.dataviz.min.css" rel="stylesheet" />
 
    <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -64,10 +45,6 @@
         </li>
 
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form>
     </div>
   </nav>
   <meta charset="utf-8">
@@ -101,28 +78,204 @@
 
  <img class="subwaylogoimg"  src="imgfile/영등포구청역.JPG" style="max-width: 20%; height: auto;">
 
+
+
+
+
+<div class="detailbox">
+ <div class="row">
+
+   <div class="nowstate_part col-md-6">
+
+
+
+
+
+     <!-- 표들어가는거 -->
+
+   <div class="card shadow mb-4 tablecard">
+     <div class="card-header py-3">
+       <h6 class="m-0 font-weight-bold text-primary">현재 대기 정보</h6>
+     </div>
+     <div class="card-body">
+       <div class="container">
+
+
+         <table class="table table-striped statetable">
+   <thead>
+     <tr>
+       <th scope="col">항목</th>
+       <th scope="col">측정값</th>
+       <th scope="col">단위</th>
+
+     </tr>
+   </thead>
+   <tbody>
+     <tr>
+       <th scope="row">미세먼지PM10</th>
+       <td><%= JSON.stringify(pm10data)%></td>
+       <td>㎍/㎥</td>
+
+     </tr>
+     <tr>
+       <th scope="row">초미세먼지PM25</th>
+       <td><%= JSON.stringify(pm25data)%></td>
+       <td>㎍/㎥</td>
+
+     </tr>
+     <tr>
+       <th scope="row">온도</th>
+       <td><%= JSON.stringify(tempdata)%></td>
+       <td>℃</td>
+
+     </tr>
+
+     <tr>
+       <th scope="row">습도</th>
+       <td><%= JSON.stringify(humidata)%></td>
+       <td>%</td>
+
+     </tr>
+   </tbody>
+   </table>
+
+
+       </div>
+     </div>
+   </div>
+   </div>
+
+
+
+ <div class="nowstate_part col-md-6">
+ <div class="card shadow mb-4">
+   <div class="card-header py-3">
+     <h6 class="m-0 font-weight-bold text-primary">현재 미세먼지 등급</h6>
+   </div>
+   <div class="card-body">
+     <div class="container">
+ <div id="example" class="k-content">
+     <div class="row nowstate">
+             <div id="gauge-container" >
+                 <div id="gauge"></div>
+                 <div >
+                   <img class="pm10table"  src="imgfile/PM10기준표.JPG" style="max-width: 100%; height: auto;">
+
+                 </div>
+             </div>
+
+             <!-- <div >
+               <img class="pm10table"  src="imgfile/PM10기준표.JPG" style="max-width: 40%; height: auto;">
+
+             </div> -->
+             <!-- <div class="col-md-6"></div> -->
+     </div>
+             <script>
+             // var pm10 = ("<%=pm10data%>")
+
+
+                 function createGauge() {
+                     $("#gauge").kendoLinearGauge({
+
+                         pointer: {
+                             value: 33,
+                             shape: "arrow",
+                             color: "#040117"
+
+                         },
+
+                         scale: {
+                             majorUnit: 20,
+                             minorUnit: 5,
+                             max: 200,
+                             ranges: [
+                                 {
+                                     from: 0,
+                                     to: 30,
+                                     color: "#34b1eb"
+                                 }, {
+                                     from: 31,
+                                     to: 50,
+                                     color: "#4c9c52"
+                                 }, {
+                                     from: 51,
+                                     to: 150,
+                                     color: "#fcca4c"
+                                 },
+                                 {
+                                     from: 151,
+                                     to: 200,
+                                     color: "#f2461f"
+                                 }
+                             ]
+                         }
+                     });
+                 }
+
+                 $(document).ready(function() {
+                     createGauge();
+
+                     $(".box").bind("change", refresh);
+
+                     $(document).bind("kendo:skinChange", function(e) {
+                         createGauge();
+                         refresh();
+                     });
+
+                     window.configuredRanges = $("#gauge").data("kendoLinearGauge").options.scale.ranges;
+                 });
+
+                 function refresh() {
+                     var gauge = $("#gauge").data("kendoLinearGauge"),
+                         showLabels = $("#labels").prop("checked"),
+                         showRanges = $("#ranges").prop("checked"),
+                         isVertical = $("#vertical").prop("checked"),
+                         positionInputs = $("input[name='labels-position']"),
+                         options = gauge.options;
+
+                     options.transitions = false;
+                     options.scale.labels.visible = showLabels;
+                     options.scale.vertical = isVertical;
+                     options.scale.ranges = showRanges ? window.configuredRanges : [];
+
+                     $("#gauge-container").toggleClass("horizontal", !isVertical);
+
+                     gauge.redraw();
+                 }
+             </script>
+
+         </div>
+    </div>
+  </div>
+ </div>
+
+ </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
  <!-- 역에 대한 정보가 들어갈 body 부분 -->
 
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
-
-
-
-          <!-- Content Row -->
-          <div class="row">
-
-<!-- 반응형으로 만들엇서염 -->
-<!-- 그래프부분 -->
-            <div class="col-md-6 col-xs-8">
-
-              <!-- Area Chart -->
-              <div class="card shadow mb-4" >
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">시간별 미세먼지 농도</h6>
-                </div>
-                <div class="card-body">
-                  <div class="container">
+        <div class="graph_part">
+          <!-- Area Chart -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">시간별 미세먼지 농도</h6>
+            </div>
+            <div class="card-body">
+              <div class="container">
                     <canvas id="myChart"></canvas>
                   </div>
                   <script>
@@ -222,50 +375,11 @@
                 </div>
               </div>
              </div>
-<!-- 미세먼지 정보 들어가는 패널 -->
-            <div class="col-md-6 col-xs-8">
-            <div class="panel panel-default">
-              <div class="panel-heading">미세먼지 상태</div>
-              <div class="panel-body">
 
-                <li>PM2.5 : <%= JSON.stringify(pm25data)%>
-                </li>
-                <li>PM10 : <%= JSON.stringify(pm10data)%>
-                </li>
-
-              </div>
-            </div>
-
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">온/습도 상태</h3>
-              </div>
-              <div class="panel-body">
-                <li>온도 : <%= JSON.stringify(tempdata)%>
-                </li>
-                <li>습도 : <%= JSON.stringify(humidata)%>
-                </li>
-              </div>
-            </div>
-
-        </div>
-
-      </div>
 
 <!-- 역 근처 건물 상세 페이지로 넘어가는 썸네일 부분 -->
       <!-- End of Main Content -->
       <div class="row">
-       <div class="col-sm-6 col-md-4">
-         <div class="thumbnail">
-           <img src="..." alt="...">
-           <div class="caption">
-             <h3>Thumbnail label</h3>
-             <p>...</p>
-             <p><a href="#" class="btn btn-primary" role="button">Button</a> </p>
-           </div>
-         </div>
-       </div>
-
 
 
        <div class="col-sm-6 col-md-4">
@@ -278,16 +392,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="..." alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>...</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> </p>
-      </div>
-    </div>
-  </div>
+</div>
      </div>
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
