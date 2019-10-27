@@ -3,6 +3,7 @@ import sys
 import datetime
 import struct
 import json
+import thread
 from socket import *
 
 
@@ -23,40 +24,48 @@ except :
 else :
     print('Connection Success')
 
-def get_post(line) :
+def set_post(loc, line) :
   post = {
-    "PM25":line[line.find('5:')+2:line.find('\t')],"PM10":line[line.find('10:')+3:line.find('\t',20)],
-    "Humi":line[line.find('y:')+2:line.find('%')],"Temp":line[line.find('e:')+2:line.find('*')], "NOW":str(datetime.datetime.now())
+    "Station Name" : loc[0],
+    "Name" : loc[1],
+    "PM25":line[line.find('5:')+2:line.find('\t')],
+    "PM10":line[line.find('10:')+3:line.find('\t',20)],
+    "Humi":line[line.find('y:')+2:line.find('%')],
+    "Temp":line[line.find('e:')+2:line.find('*')],
+    "NOW":str(datetime.datetime.now())
   }
   return post
 
+def Usage() :
+    '''
+    This code written on Python 3.7.2
+    Usage : python client.py [StationName] [BuildingName]
+    '''
+
 #Main
 if __name__=="__main__" :
-    if(len(sys.argv) != 3) :
-        print('-i/-o -bugilding_Name')
-        print('-i -> indoor, -o -> outdoor')
+    if (len(sys.argv) != 4) :
+        print(Usage.__doc__)
         sys.exit()
-    if(sys.argv[1] != '-i' and sys.argv[1] !='-o') :
-        sys.exit()
-    loc = json.dumps(sys.argv[1:])
-    client.connect(ADDR)
-    client.sendall(loc.encode('utf-8'))
-    line = SDS011.readline()
-    try :
-        while True :
-            line = SDS011.readline()
-            value = json.dumps(get_post(line))
-            if  value is not None:
-                try :
-                    client.sendall(value.encode('utf-8'))
-                except Exception as e :
-                    print('While transmitting, Problem detected : ',e)
-                else :
-                    print(line)
-    #Error branch point
-    #Request Quit
-    except KeyboardInterrupt :
-        print('\nQuit')
-    #Unknow error occur
-    except Exception as e :
-        print('Error Detected : {}'.format(e))
+    else :
+        loc = json.dumps(sys.argv[1:])
+        client.connect(ADDR)
+        line = SDS011.readline()
+        try :
+            while True :
+                line = SDS011.readline()
+                value = json.dumps(['8080',set_post(loc, line)])
+                if  value is not None:
+                    try :
+                        client.sendall(value.encode('utf-8'))
+                    except Exception as e :
+                        print('While transmitting, Problem detected : ',e)
+                    else :
+                        print(line)
+        #Error branch point
+        #Request Quit
+        except KeyboardInterrupt :
+            print('\nQuit')
+        #Unknow error occur
+        except Exception as e :
+            print('Error Detected : {}'.format(e))
