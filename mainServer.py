@@ -2,61 +2,55 @@ from socket import *
 import pymongo
 import json
 import thread
+from model import Regresssion
 
-get_port = 8080
-refresh_port = 4040
+PORT = 8080
 
-def client_server(user, addr) :
-    loc = user.recv(1024)
-    loc = json.loads(loc.decode('utf-8'))
+try :
+    connection = pymongo.MongoClient('mongodb://ec2-13-125-244-112.ap-northeast-2.compute.amazonaws.com:27017')
+    db = connection['testmk']
+    collection = db['Null']
+except :
+    print("MongoDB Connection Error")
+    sys.exit()
+else :
+    print('MongoDB Connection Success')
+
+def classificationOrd(user, addr) :
     while True :
         try :
-            data = user.recv(1024)
-            data = json.loads(data.decode('utf-8'))
-            insert_post(loc, data)
+            msg = user.recv(1024)
+            msg = json.loads(msg.decode('utf-8'))
+            ord = msg[0]
+            data = msg[1:]
+            if ord == '8080' :
+                insert_post(data)
+            else :
+                linnearRegresssion(data, user)
         except Exception as e:
-            print('server : ',e)
             break
-        else :
-            print('Send Success')
-    return
 
+def linnearRegresssion(data,user) :
+    try :
+        val = Regresssion(data,collection)
+        user.sendall(json.dumps(val).encode('utf-8'))
+        insert_post(val)
+    except Exception as e:
+        break
 #Database name='test' & Collection name='Null'
 #Insert document
-def insert_post(loc,value) :
-    db = connection[loc[1][1:]]
-    in_out = ''
-    if loc[0] == '-i' :
-        in_out = 'indoor'
-    else :
-        in_out = 'outdoor'
-    collection = db[in_out]
+def insert_post(value) :
     collection.insert(value)
 
 if __name__ == '__main__' :
-    try :
-        connection = pymongo.MongoClient('mongodb://ec2-13-125-244-112.ap-northeast-2.compute.amazonaws.com:27017')
-    except :
-        print("MongoDB Connection Error")
-        sys.exit()
-    else :
-        print('MongoDB Connection Success')
-    #AF_INET-v4, AF_INET6-v6
-    #SOCK_STREAM-TCP,SOCK_DGRAM-UDP
-    get_server = socket(AF_INET, SOCK_STREAM)
-    refresh_server = socket(AF_INET, SOCK_STREAM)
-    #bind((addr,port#)),''->INADDR_ANY,' '->Broadcast
-    get_server.bind(('',get_port))
-    refresh_server.bind(('',refresh_port))
-    #lisetn-Maximum user
-    get_server.listen(10)
-    refresh_server.listen(100)
+    server = socket(AF_INET, SOCK_STREAM)
+    server.bind(('',PORT))
+    server.listen(1000)
     print('Waiting Connect')
     while True :
+        user, addr = server.accept()
         try :
-            user, addr = get_server.accept()
-            print('connected : ', user)
-            thread.start_new_thread(client_server,(user, addr))
+            thread.start_new_thread(classificationOrd,(user,addr))
         except Exception as e :
             print('out : ', e)
             break
