@@ -39,7 +39,7 @@ def Regresssion(msg, collection):
     pm10 = []
     pm25 = []
 
-    data = collection.find()
+    data = collection.find({"Station":msg[0],"Name":msg[1]})
 
     for detail in data:
        # print(detail['Temp'],detail['Humi'],detail['PM10'])
