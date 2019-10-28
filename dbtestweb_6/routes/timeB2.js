@@ -5,15 +5,15 @@ var Client = require('mongodb').MongoClient;
 var app = express();
 
 //파이썬 파일이랑 연결하는 코드
-var {PythonShell} = require('python-shell');
-
-PythonShell.run("testclient.py", null, function(err){
-
-    if(err) console.log('err msg : ', err);
-
-    console.log('finished');
-
-})
+// var {PythonShell} = require('python-shell');
+//
+// PythonShell.run("testclient.py", null, function(err){
+//
+//     if(err) console.log('err msg : ', err);
+//
+//     console.log('finished');
+//
+// })
 
 
 

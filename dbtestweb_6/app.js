@@ -9,11 +9,26 @@ var bodyParser = require('body-parser'); // http가 전송 될때 바디를 처�
 var connectMongoDB = require('./src/connectMongoDB');
 
 
+
+
 var connectRoutes = require('./src/connectRoutes');
 var connectErrorHandlers = require('./src/connectErrorHandlers');
 
 var app = express(); //express 객체 생성
 // view engine setup
+
+
+var {PythonShell} = require('python-shell');
+
+PythonShell.run("testclient.py", null, function(err){
+
+    if(err) console.log('err msg : ', err);
+
+    console.log('finished');
+
+})
+
+
 
 app.set('views', path.join(__dirname, 'views')); // 어떤 view를 사용 할 것인지 현재 폴더에 있는 views를 사용
 app.set('view engine', 'ejs'); // view engine을 ejs를 쓰겟다. 기본값은 jade
