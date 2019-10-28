@@ -3,6 +3,21 @@ var router = express.Router();
 var mongodb = require('mongodb');
 var Client = require('mongodb').MongoClient;
 var app = express();
+
+//파이썬 파일이랑 연결하는 코드
+var {PythonShell} = require('python-shell');
+
+PythonShell.run("testclient.py", null, function(err){
+
+    if(err) console.log('err msg : ', err);
+
+    console.log('finished');
+
+})
+
+
+
+
 Client.connect('mongodb://ec2-13-125-244-112.ap-northeast-2.compute.amazonaws.com:27017/time_B2',function(error,client){
   if (error) {
     return;
