@@ -18,13 +18,17 @@ var app = express(); //express 객체 생성
 // view engine setup
 
 // 파이썬 연결 코드
+
 PythonShell.run("testclient.py", null, function(err,results){
 
     if(err) console.log('err msg : ', err);
 
     console.log('finished1/results: %j',results);
 
+    return results;
+    // console.log(results[0]);
 })
+
 PythonShell.run("testclient2.py", null, function(err,results){
 
     if(err) console.log('err msg : ', err);
