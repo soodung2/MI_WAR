@@ -18,9 +18,9 @@ client2 = socket(AF_INET, SOCK_STREAM)
 
 if __name__ == '__main__' :
     client2.connect(ADDR)
-    print(1)
-    client2.sendall(json.dumps(['4040','s2','n2']).encode('utf-8'))
-    print(2)
+    # print(1)
+    client2.sendall(json.dumps(['4040','S2','N1']).encode('utf-8'))
+    # print(2)
     msg = json.loads(client2.recv(1024).decode('utf-8'))
-    print(3)
+    # print(3)
     print(msg)

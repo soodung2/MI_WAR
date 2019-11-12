@@ -13,8 +13,9 @@ var app = express();
   router.get('/time5', function (req, res, next) {
     var db1 = req.db;//db1에 db받아온거 넣어줌
     var mysort = {NOW:-1};//시간을 역순으로 정렬하는 변수선언
-    var projection={_id: 0,NOW: 1,Temp: 1,PM10: 1,Humi: 1,PM25: 1};//id값을 생략해서 보여주는 변수
-    db1.collection('out').find({},projection).sort(mysort).limit(5)//db/out에서 <시간역순정렬(mysort)>  후   <값1개(limit(1))>  받아옴(가장 최근 값받아옵니다.)
+    // var projection={_id: 0,NOW: 1,Temp: 1,PM10: 1,Humi: 1,PM25: 1};//id값을 생략해서 보여주는 변수
+    var projection={_id: 0,NOW: 1,Temp: 1,Humi: 1,PM10: 1,PM25: 1};
+    db1.collection('Null').find({},projection).sort(mysort).limit(5)//db/out에서 <시간역순정렬(mysort)>  후   <값1개(limit(1))>  받아옴(가장 최근 값받아옵니다.)
     .toArray(function(err, docs) {
       if (err) {
         next(err);

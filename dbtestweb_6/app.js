@@ -28,14 +28,13 @@ PythonShell.run("testclient.py", null, function(err,results){
     return results;
     // console.log(results[0]);
 })
-
-PythonShell.run("testclient2.py", null, function(err,results){
-
-    if(err) console.log('err msg : ', err);
-
-    console.log('finished2/results: %j',results);
-
-})
+// PythonShell.run("testclient2.py", null, function(err,results){
+//
+//     if(err) console.log('err msg : ', err);
+//
+//     console.log('finished2/results: %j',results);
+//
+// })
 
 
 app.set('views', path.join(__dirname, 'views')); // 어떤 view를 사용 할 것인지 현재 폴더에 있는 views를 사용
