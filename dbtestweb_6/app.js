@@ -7,7 +7,7 @@ var bodyParser = require('body-parser'); // http가 전송 될때 바디를 처�
 
 // 메인에서 한번만 연동하게 할라고 테스트 해보는 코드
 var connectMongoDB = require('./src/connectMongoDB');
-var {PythonShell} = require('python-shell');
+//var {PythonShell} = require('python-shell');
 
 
 
@@ -19,15 +19,14 @@ var app = express(); //express 객체 생성
 
 // 파이썬 연결 코드
 
-PythonShell.run("testclient.py", null, function(err,results){
-
-    if(err) console.log('err msg : ', err);
-
-    console.log('finished1/results: %j',results);
-
-    return results;
-    // console.log(results[0]);
-})
+// PythonShell.run("testclient.py", null, function(err,results){
+//
+//     if(err) console.log('err msg : ', err);
+//
+//     console.log('finished1/results: %j',results);
+//
+//     return results;
+// })
 // PythonShell.run("testclient2.py", null, function(err,results){
 //
 //     if(err) console.log('err msg : ', err);

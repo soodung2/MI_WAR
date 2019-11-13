@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var {PythonShell} = require('python-shell');
 // var mongodb = require('mongodb');
 // var Client = require('mongodb').MongoClient;
 var app = express();
@@ -11,6 +12,11 @@ var app = express();
 //   }//버튼 누를때 db접속
 
   router.get('/time5', function (req, res, next) {
+    PythonShell.run("testclient.py", null, function(err,results){
+        if(err) console.log('err msg : ', err);
+        console.log('finished1/results: %j',results);
+
+    })
     var db1 = req.db;//db1에 db받아온거 넣어줌
     var mysort = {NOW:-1};//시간을 역순으로 정렬하는 변수선언
     // var projection={_id: 0,NOW: 1,Temp: 1,PM10: 1,Humi: 1,PM25: 1};//id값을 생략해서 보여주는 변수

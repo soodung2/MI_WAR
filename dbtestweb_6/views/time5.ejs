@@ -293,7 +293,7 @@
                       var li_len=0;
                       var one_char="";
                       var str2 = "";
-                      for(i=0;i<str_length;i++){
+                      for(i=0;i<str_length+1;i++){
                         one_char=str.charAt(i);
                         ko_byte++;
                       }
@@ -306,9 +306,6 @@
                         return value;
                       }
                     }
-                    var pm25 = ("<%=pm25data%>")
-                    var temp = ("<%=tempdata%>")
-
                     let myChart = document.getElementById("myChart");
                     let myLineChart = new Chart(myChart, {
                       type: 'line',
@@ -328,7 +325,7 @@
                           pointBorderWidth: 2,
                           data: [("<%=pm25data4%>"), ("<%=pm25data3%>"), ("<%=pm25data2%>"), ("<%=pm25data1%>"), ("<%=pm25data%>")],
                         },{
-                          label: "습도",
+                          label: "미세먼지",
                           lineTension: 0.3,
                           backgroundColor: "rgba(255,0,255,0.2)",
                           borderColor: "rgba(255,0,255,1)",
@@ -339,7 +336,7 @@
                           pointHoverBackgroundColor: "rgba(255,0,255,1)",
                           pointHitRadius: 50,
                           pointBorderWidth: 2,
-                          data: [("<%=humidata4%>"), ("<%=humidata3%>"), ("<%=humidata2%>"), ("<%=humidata1%>"), ("<%=humidata%>")],
+                          data: [("<%=pm10data4%>"), ("<%=pm10data3%>"), ("<%=pm10data2%>"), ("<%=pm10data1%>"), ("<%=pm10data%>")],
                         }],
                       },
                       options: {
