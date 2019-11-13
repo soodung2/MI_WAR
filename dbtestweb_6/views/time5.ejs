@@ -371,6 +371,108 @@
                   </script>
                 </div>
               </div>
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">예측 미세먼지 농도</h6>
+                </div>
+                <div class="card-body">
+                  <div class="container">
+                        <canvas id="myChart2"></canvas>
+                      </div>
+                      <script>
+                      var l_now = JSON.stringify("<%=l_nowdata%>",replacer);
+                      var l_now1 = JSON.stringify("<%=l_nowdata1%>",replacer);
+                      var l_now2 = JSON.stringify("<%=l_nowdata2%>",replacer);
+                      var l_now3 = JSON.stringify("<%=l_nowdata3%>",replacer);
+                      var l_now4 = JSON.stringify("<%=l_nowdata4%>",replacer);
+                        function replacer(key,value){//nowdata string이 너무 길어서 그래프 망가짐. 길이 제한해주는 함수
+                          var str=value;
+                          var str_length=value.length;
+                          var i=0;
+                          var max_length = 19;
+                          var ko_byte=0;
+                          var li_len=0;
+                          var one_char="";
+                          var str2 = "";
+                          for(i=0;i<str_length+1;i++){
+                            one_char=str.charAt(i);
+                            ko_byte++;
+                          }
+                          if(ko_byte<=max_length){
+                            li_len=i+1;
+                          }
+                          if(ko_byte>max_length){
+                            str2=str.substr(0,max_length);
+                            value=str2;
+                            return value;
+                          }
+                        }
+                        let myChart2 = document.getElementById("myChart2");
+                        let myBarChart = new Chart(myChart2, {
+                          type: 'bar',
+                          data: {
+                            labels: [l_now4, l_now3, l_now2, l_now1, l_now],
+                            datasets: [{
+                              label: "초미세먼지",
+                              lineTension: 0.3,
+                              backgroundColor: "rgba(2,117,216,0.2)",
+                              borderColor: "rgba(2,117,216,1)",
+                              pointRadius: 5,
+                              pointBackgroundColor: "rgba(2,117,216,1)",
+                              pointBorderColor: "rgba(255,255,255,0.8)",
+                              pointHoverRadius: 5,
+                              pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                              pointHitRadius: 50,
+                              pointBorderWidth: 2,
+                              data: [("<%=l_pm25data4%>"), ("<%=l_pm25data3%>"), ("<%=l_pm25data2%>"), ("<%=l_pm25data1%>"), ("<%=l_pm25data%>")],
+                            },{
+                              label: "미세먼지",
+                              lineTension: 0.3,
+                              backgroundColor: "rgba(255,0,255,0.2)",
+                              borderColor: "rgba(255,0,255,1)",
+                              pointRadius: 5,
+                              pointBackgroundColor: "rgba(255,0,255,1)",
+                              pointBorderColor: "rgba(255,255,255,0.8)",
+                              pointHoverRadius: 5,
+                              pointHoverBackgroundColor: "rgba(255,0,255,1)",
+                              pointHitRadius: 50,
+                              pointBorderWidth: 2,
+                              data: [("<%=l_pm10data4%>"), ("<%=l_pm10data3%>"), ("<%=l_pm10data2%>"), ("<%=l_pm10data1%>"), ("<%=l_pm10data%>")],
+                            }],
+                          },
+                          options: {
+                            scales: {
+                              xAxes: [{
+                                time: {
+                                  unit: 'date'
+                                },
+                                gridLines: {
+                                  display: false
+                                },
+                                ticks: {
+                                  maxTicksLimit: 7
+                                }
+                              }],
+                              yAxes: [{
+                                ticks: {
+                                  min: 0,
+                                  max: 100,
+                                  maxTicksLimit: 5
+                                },
+                                gridLines: {
+                                  color: "rgba(0, 0, 0, .125)",
+                                }
+                              }],
+                            },
+                            legend: {
+                              display: false
+                            }
+                          }
+                        });
+                      </script>
+                    </div>
+                  </div>
+
              </div>
 
 
