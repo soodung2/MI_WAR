@@ -15,7 +15,7 @@ var router = express.Router();
 
 router.get('/', function (req, res, next) {
   var db = req.db;
-  db.collection('out').find({})
+  db.collection('Null').find({})
   .toArray(function(err, docs) {
     if (err) {
       next(err);

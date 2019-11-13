@@ -39,7 +39,7 @@ var messages = new Array();
 // multi-dimensional arrays containing:
 // image and text for tooltip
 // optional: bgColor and color to be sent to tooltip
-messages[0] = new Array('https://support.apple.com/library/content/dam/edam/applecare/images/en_US/social/thumbnail/ios11-emoji_2x.png,',JSON.stringify(list[0]),"#FFFFFF");
+messages[0] = new Array('https://support.apple.com/library/content/dam/edam/applecare/images/en_US/social/thumbnail/ios11-emoji_2x.png,',JSON.stringify(list[1]),"#FFFFFF");
 messages[1] = new Array('http://www.webmadang.net/jackman_lecture/script/3_s.jpg',JSON.stringify(list[1]),"#DDECFF");
 messages[2] = new Array('http://www.webmadang.net/jackman_lecture/script/3_s.jpg',JSON.stringify(list[2]),'white');
 
