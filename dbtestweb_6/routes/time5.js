@@ -26,15 +26,15 @@ var app = express();
       if (err) {
         next(err);
         return;
-    }
+        }
 
       res.render('time5', {
-      nowdata: docs[0].NOW,tempdata: docs[0].Temp,humidata: docs[0].Humi,pm25data: docs[0].PM25,pm10data: docs[0].PM10,
-      nowdata1: docs[1].NOW,tempdata1: docs[1].Temp,humidata1: docs[1].Humi,pm25data1: docs[1].PM25,pm10data1: docs[1].PM10,
-      nowdata2: docs[2].NOW,tempdata2: docs[2].Temp,humidata2: docs[2].Humi,pm25data2: docs[2].PM25,pm10data2: docs[2].PM10,
-      nowdata3: docs[3].NOW,tempdata3: docs[3].Temp,humidata3: docs[3].Humi,pm25data3: docs[3].PM25,pm10data3: docs[3].PM10,
-      nowdata4: docs[4].NOW,tempdata4: docs[4].Temp,humidata4: docs[4].Humi,pm25data4: docs[4].PM25,pm10data4: docs[4].PM10
-    });
+          nowdata: docs[0].NOW,tempdata: docs[0].Temp,humidata: docs[0].Humi,pm25data: docs[0].PM25,pm10data: docs[0].PM10,
+          nowdata1: docs[1].NOW,tempdata1: docs[1].Temp,humidata1: docs[1].Humi,pm25data1: docs[1].PM25,pm10data1: docs[1].PM10,
+          nowdata2: docs[2].NOW,tempdata2: docs[2].Temp,humidata2: docs[2].Humi,pm25data2: docs[2].PM25,pm10data2: docs[2].PM10,
+          nowdata3: docs[3].NOW,tempdata3: docs[3].Temp,humidata3: docs[3].Humi,pm25data3: docs[3].PM25,pm10data3: docs[3].PM10,
+          nowdata4: docs[4].NOW,tempdata4: docs[4].Temp,humidata4: docs[4].Humi,pm25data4: docs[4].PM25,pm10data4: docs[4].PM10
+      });
     });
 
 });
