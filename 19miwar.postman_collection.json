@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "6a4662df-7444-4fbb-9843-fea12eefd5b8",
+		"name": "19miwar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "miwardeploy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":0,\n\t\"method\": \"\",\n\t\"params\": {\n\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://15.164.226.161:8080/operators/miwartrx/deploy",
+					"protocol": "http",
+					"host": [
+						"15",
+						"164",
+						"226",
+						"161"
+					],
+					"port": "8080",
+					"path": [
+						"operators",
+						"miwartrx",
+						"deploy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "miwarsetTemperature",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"jsonrpc\": \"2.0\",\n\t\"method\": \"setTemperature\",\n\t\"params\": {\n\t\t\"_place\": 10,\n\t\t\"_date\": 20190831,\n\t\t\"_temperature\": 32\n\t}\n}"
+				},
+				"url": {
+					"raw": "15.164.226.161:8080/operators/miwartrx/0x8F61Ae9cf38Ae1aE3Ad04808739F492F9D24eBa1",
+					"host": [
+						"15",
+						"164",
+						"226",
+						"161"
+					],
+					"port": "8080",
+					"path": [
+						"operators",
+						"miwartrx",
+						"0x8F61Ae9cf38Ae1aE3Ad04808739F492F9D24eBa1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "miwargetTemperature",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"method\": \"getTemperature\",\n\t\"params\": {\n\t\t\"_place\": 10,\n\t\t\"_date\": 20190831\n\t}\n}"
+				},
+				"url": {
+					"raw": "15.164.226.161:8080/operators/miwartrx/0x8F61Ae9cf38Ae1aE3Ad04808739F492F9D24eBa1/call",
+					"host": [
+						"15",
+						"164",
+						"226",
+						"161"
+					],
+					"port": "8080",
+					"path": [
+						"operators",
+						"miwartrx",
+						"0x8F61Ae9cf38Ae1aE3Ad04808739F492F9D24eBa1",
+						"call"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "miwarsetHumidity",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"method\": \"setHumidity\",\n\t\"params\": {\n\t\t\"_place\": 10,\n\t\t\"_date\": 20190831,\n\t\t\"_humidity\": 32\n\t}\n}"
+				},
+				"url": {
+					"raw": "15.164.226.161:8080/operators/miwartrx/0x8F61Ae9cf38Ae1aE3Ad04808739F492F9D24eBa1",
+					"host": [
+						"15",
+						"164",
+						"226",
+						"161"
+					],
+					"port": "8080",
+					"path": [
+						"operators",
+						"miwartrx",
+						"0x8F61Ae9cf38Ae1aE3Ad04808739F492F9D24eBa1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "miwargetHumidity",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"method\": \"getHumidity\",\n\t\"params\": {\n\t\t\"_place\": 10,\n\t\t\"_date\": 20190831\n\t}\n}"
+				},
+				"url": {
+					"raw": "15.164.226.161:8080/operators/miwartrx/0x8F61Ae9cf38Ae1aE3Ad04808739F492F9D24eBa1/call",
+					"host": [
+						"15",
+						"164",
+						"226",
+						"161"
+					],
+					"port": "8080",
+					"path": [
+						"operators",
+						"miwartrx",
+						"0x8F61Ae9cf38Ae1aE3Ad04808739F492F9D24eBa1",
+						"call"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
